@@ -1,22 +1,35 @@
 <template>
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
         <div class="card">
-            <div class="d-flex w-100 justify-content-center"> <p class="font-light fs-1">Entrar</p></div>
+            <div class="d-flex w-100 justify-content-center"> <p class="font-light fs-1">Cadastro</p></div>
             <div class="card-body">
-                <form @submit.prevent="entrar()" >
+                <form @submit.prevent="cadastrar()" >
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" v-model="user.name">
+                    </div>
+
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="user.email">
+                        <input type="email" class="form-control" aria-describedby="emailHelp" v-model="user.email">
                     </div>
+
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" v-model="user.password">
+                        <input type="password" class="form-control" v-model="user.password">
                     </div>
-                    
-                    <div v-if="this.error" class="alert alert-danger mt-3">{{error}}</div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <router-link to="/register" type="submit" class="ms-2 btn">Registrar-se</router-link>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Confirm password</label>
+                        <input type="password" class="form-control" v-model="user.confirm_password">
+                    </div>
+
+                    <div v-if="this.error" class="alert alert-danger mt-3">{{error}}</div>
+                    
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <router-link to="/login" type="submit" class="ms-5 btn">Entrar</router-link>
+
                 </form>
             </div>
         </div>
@@ -36,8 +49,8 @@
             }
         },
         methods: {
-            entrar() {
-                this.signin({user: this.user}).then((response) => {
+            cadastrar() {
+                this.signup({user: this.user}).then((response) => {
                     if(response.data.error === '') {
                         let token = response.data.token
                         window.localStorage.setItem('token', token)
@@ -49,7 +62,7 @@
                 
             },
             ...mapActions([
-                'signin',
+                'signup'
             ])
         },
         computed: {

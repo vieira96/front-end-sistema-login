@@ -9,6 +9,10 @@ export default {
         return apiClient.post('/auth/login', user)
     },
 
+    register(user) {
+        return apiClient.post('/auth/register', user)
+    },
+
     tokenValidate(token) {
         return apiClient.get('/auth/user', {
             headers: {

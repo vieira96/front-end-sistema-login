@@ -1,14 +1,21 @@
 import UserServices from '@/resources/user/services/UserServices'
 
 export default {
-    signIn:({commit}, payload) => {
+    signin:({commit}, payload) => {
         console.log('commit', commit)
         return UserServices.login(payload.user)
             .then((response) => {
-                if(response.data.error === '') {
-                    let token = response.data.token
-                    window.localStorage.setItem('token', token)
-                }
+                return response
+            })
+        
+    },
+
+    signup:({commit}, payload) => {
+        console.log('commit', commit)
+        return UserServices.register(payload.user)
+            .then((response) => {
+                console.log('resposta signup', response)
+                return response
             })
         
     },
