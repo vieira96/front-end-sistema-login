@@ -13,6 +13,22 @@ export default {
         return apiClient.post('/auth/register', user)
     },
 
+    update(user, token) {
+        return apiClient.put(`/auth/edit`, user, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+    },
+
+    delete(token) {
+        return apiClient.delete('auth/delete', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+    },
+
     tokenValidate(token) {
         return apiClient.get('/auth/user', {
             headers: {
@@ -31,6 +47,6 @@ export default {
                 'Authorization': 'Bearer ' + token
             }
         })
-    }
+    },
 
 }

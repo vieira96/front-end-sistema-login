@@ -14,17 +14,35 @@ export default {
         console.log('commit', commit)
         return UserServices.register(payload.user)
             .then((response) => {
-                console.log('resposta signup', response)
                 return response
             })
         
+    },
+
+    edit:({commit}, payload) =>{
+        console.log(commit);
+        return UserServices.update(payload.user, payload.token)
+            .then((response) => {
+                return response
+            })
+    },
+
+    delete:({commit}, payload) => {
+        return UserServices.delete(payload.token)
+            .then((response) => {
+                commit('logar', '');
+                return response
+            })
     },
 
     checkLogin({commit} ,payload){
         return UserServices.tokenValidate(payload)
             .then((response) => {
                 commit('logar', response.data.user)
-            }).catch(() => {return null})
+                return response
+            }).catch((response) => {
+                return response
+            })
     },
 
     logout({commit}, payload) {
