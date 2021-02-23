@@ -77,6 +77,7 @@ export default {
             return
         }
         this.checkLogin(token).then((response) => {
+            console.log(response)
             if(!this.loggedUser) {
                 window.localStorage.removeItem('token')
                 this.$router.push({path: '/login'})
